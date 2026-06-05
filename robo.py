@@ -33,6 +33,7 @@ except Exception:
 PASTA = os.path.dirname(os.path.abspath(__file__))
 ARQ_VISTOS = os.path.join(PASTA, "vistos.json")
 ARQ_SAIDA = os.path.join(PASTA, "leads_novos.csv")
+ARQ_JSON = os.path.join(PASTA, "leads.json")  # base cumulativa lida pelo app
 
 
 def _slug(s):
@@ -71,6 +72,25 @@ def gravar_csv(leads):
             w.writeheader()
         for l in leads:
             w.writerow({k: l.get(k, "") for k in config.CSV_HEADER})
+
+
+def atualizar_json(novos):
+    """Mantém leads.json como base cumulativa (deduplicada) que o app lê."""
+    existentes = []
+    if os.path.exists(ARQ_JSON):
+        try:
+            existentes = json.load(open(ARQ_JSON, encoding="utf-8"))
+        except Exception:
+            existentes = []
+    vistos = {chave(l) for l in existentes if l.get("empresa")}
+    add = 0
+    for l in novos:
+        if chave(l) not in vistos:
+            vistos.add(chave(l))
+            existentes.insert(0, {k: l.get(k, "") for k in config.CSV_HEADER})
+            add += 1
+    json.dump(existentes, open(ARQ_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return add, len(existentes)
 
 
 def main():
@@ -117,9 +137,12 @@ def main():
 
     if leads:
         gravar_csv(leads)
+        add, total = atualizar_json(leads)
         salvar_vistos(vistos)
-        print(f"\n{len(leads)} leads novos em {os.path.basename(ARQ_SAIDA)} → importe no painel.")
+        print(f"\n{len(leads)} leads novos. leads.json agora tem {total} (+{add}). CSV: {os.path.basename(ARQ_SAIDA)}.")
     else:
+        # garante que o leads.json exista mesmo sem novidades
+        atualizar_json([])
         print("\nNenhum lead novo desta vez.")
 
 
