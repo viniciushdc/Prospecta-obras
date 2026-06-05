@@ -2,9 +2,11 @@ name: Robô Prospecta Obras
 
 on:
   schedule:
-    # Toda segunda-feira às 08:00 de Brasília (11:00 UTC)
-    - cron: "0 11 * * 1"
-  workflow_dispatch: {}   # botão "Run workflow" para rodar na hora
+    - cron: "0 11 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   prospectar:
@@ -16,14 +18,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      # guarda a memória de leads já vistos entre as execuções (dedupe)
-      - name: Restaurar memória de leads
-        uses: actions/cache@v4
-        with:
-          path: vistos.json
-          key: vistos-${{ github.run_id }}
-          restore-keys: vistos-
-
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
@@ -32,7 +26,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python robo.py --limite 60
 
-      - name: Disponibilizar o CSV (baixável na aba Actions)
+      - name: Salvar leads no repositório
+        run: |
+          git config user.name "robo-prospecta"
+          git config user.email "robo@users.noreply.github.com"
+          git add leads.json vistos.json leads_novos.csv 2>/dev/null || true
+          git commit -m "Atualiza leads do dia [skip ci]" || echo "nada novo"
+          git push || echo "sem push"
+
+      - name: Disponibilizar o CSV também
         uses: actions/upload-artifact@v4
         with:
           name: leads-novos
