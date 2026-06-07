@@ -139,7 +139,9 @@ const HEADER=["empresa","org","uf","municipio","local","tipoObra","fonte","valor
 const FASES=["Licença","Financiamento","Cotação","Em obra","Pós-obra"];
 const FCOLOR={"Licença":"#0ea5e9","Financiamento":"#6366f1","Cotação":ORANGE,"Em obra":"#16a34a","Pós-obra":"#94a3b8"};
 function fix(l){
-  const CANAIS={ "C.Vale":"cvale.com.br/site/fornecedores (Setor de Compras)", "Coamo":"servicos.coamo.com.br/cotacaoonline", "Cocamar":"portal.cocamar.com.br · controle@cocamar.com.br" };
+  const CANAIS={ "C.Vale":"cvale.com.br/site/fornecedores (Setor de Compras)", "Coamo":"servicos.coamo.com.br/cotacaoonline", "Cocamar":"portal.cocamar.com.br · controle@cocamar.com.br",
+    "Aurora Coop":"auroracoop.com.br · Setor de Suprimentos (sede em Chapecó/SC)", "Coopavel":"coopavel.com.br · Setor de Compras", "Copercampos":"copercampos.com.br · Setor de Compras",
+    "Coasul":"coasul.com.br · Setor de Compras", "Tirol (Laticínios Tirol)":"tirol.com.br · Engenharia/Suprimentos (sede Treze Tílias/SC)", "Comigo":"comigo.com.br · Setor de Suprimentos" };
   const FASE_DE={ "Plano Safra / PCA":"Financiamento", "Licença Ambiental":"Licença", "Licitação (PNCP)":"Cotação" };
   const ehLicit = l.categoria || (((l.fonte||"").indexOf("Licitação")>=0 || (l.fonte||"").indexOf("DOU")>=0) ? "Licitação" : "Privada");
   return {...l, local:l.local||"",
@@ -241,11 +243,54 @@ function setView(v){ VIEW=v; ["painel","funil","leads"].forEach(x=>{
 
 function ringHTML(s){ const c=TCOLOR[temp(s)];
   return `<div class="ring" style="background:conic-gradient(${c} ${s*3.6}deg,#eef1f7 0)"><i style="color:${c}">${s}</i></div>`; }
+function alvoPorOrg(l){
+  const M={
+   "Cooperativa":{cargo:"Setor de Compras / Suprimentos",canal:"Portal de fornecedores / Setor de Compras da cooperativa"},
+   "Agroindústria":{cargo:"Engenharia / Suprimentos",canal:"Setor de Engenharia ou Suprimentos (canal institucional)"},
+   "Indústria de Ração":{cargo:"Engenharia / Suprimentos",canal:"Setor de Engenharia ou Suprimentos (canal institucional)"},
+   "Frigorífico":{cargo:"Engenharia / Manutenção",canal:"Setor de Engenharia/Manutenção (canal institucional)"},
+   "Cerealista":{cargo:"Proprietário / Gestor da unidade",canal:"Contato direto com o gestor da unidade"},
+   "Trading":{cargo:"Gestor de Operações",canal:"Setor de Operações/Engenharia"},
+   "Produtor / Fazenda":{cargo:"Proprietário",canal:"Contato direto com o proprietário"},
+   "Sementeira":{cargo:"Gestor / Compras",canal:"Setor de Compras da empresa"},
+   "Varejo / Comércio":{cargo:"Expansão / Engenharia",canal:"Departamento de Expansão/Engenharia"},
+   "Órgão Público / Prefeitura":{cargo:"Setor de Licitações / Engenharia",canal:"Edital no PNCP + Setor de Licitações do órgão"}
+  };
+  return M[l.org]||{cargo:"Compras / Engenharia",canal:"Canal oficial da empresa"};
+}
 function decisorTxt(l){ const c=l.cargo&&l.cargo!=="A identificar"?l.cargo:""; const n=l.contato&&l.contato!=="A identificar"?l.contato:"";
-  if(n&&c) return `👤 ${n} (${c})`; if(n) return `👤 ${n}`; if(c) return `👤 ${c}`; return `👤 decisor a identificar`; }
+  if(n&&c) return `👤 ${n} (${c})`; if(n) return `👤 ${n}`; if(c) return `👤 ${c}`;
+  return `🎯 procurar: ${alvoPorOrg(l).cargo}`; }
 const mapQuery=l=> encodeURIComponent([l.local,l.municipio,l.uf,"Brasil"].filter(Boolean).join(", "));
 const mapLink=l=> `https://www.google.com/maps/search/?api=1&query=${mapQuery(l)}`;
 const localTxt=l=> l.local?`${l.local}, ${l.municipio}/${l.uf}`:`${l.municipio}/${l.uf}`;
+
+// ---- Distância de Chapecó (base de coordenadas + fallback por UF) ----
+const CHAPECO=[-27.0965,-52.6182];
+const norm=s=>(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z ]/g,"").trim();
+const CITY_COORDS={
+ "chapeco":[-27.0965,-52.6182],"sao miguel do oeste":[-26.7256,-53.5183],"sarandi":[-27.9444,-52.9233],
+ "erechim":[-27.6344,-52.2739],"pinhalzinho":[-26.8489,-52.9919],"salete":[-26.9786,-49.9989],
+ "paranagua":[-25.5163,-48.5225],"curitiba":[-25.4284,-49.2733],"rio do sul":[-27.2147,-49.6431],
+ "palmeira de goias":[-16.8056,-49.9264],"toledo":[-24.7136,-53.7430],"campo mourao":[-24.0458,-52.3786],
+ "campina da lagoa":[-24.5869,-52.7989],"itaquirai":[-23.4783,-54.1869],"cunha pora":[-26.8950,-53.1689],
+ "maravilha":[-26.7656,-53.1719],"xanxere":[-26.8769,-52.4044],"concordia":[-27.2342,-52.0281],
+ "cascavel":[-24.9555,-53.4552],"dourados":[-22.2231,-54.8120],"sidrolandia":[-20.9319,-54.9614],
+ "rio verde":[-17.7975,-50.9275],"sorriso":[-12.5450,-55.7211],"cuiaba":[-15.6014,-56.0979],
+ "vargeao":[-26.8606,-52.1561],"anaurilandia":[-22.1786,-52.7144],"nova alvorada":[-29.4083,-51.9069],
+ "sao bernardino":[-26.4747,-52.9658],"flor da serra do sul":[-26.2419,-53.3308],"ita":[-27.2722,-52.3306]};
+const UF_CENTROID={SC:[-27.45,-50.95],PR:[-24.5,-51.5],RS:[-29.5,-53.5],MS:[-20.5,-54.5],GO:[-15.9,-49.5],MT:[-12.7,-55.9]};
+function haversine(a,b){const R=6371,r=Math.PI/180;const dLat=(b[0]-a[0])*r,dLon=(b[1]-a[1])*r;
+ const x=Math.sin(dLat/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLon/2)**2;
+ return Math.round(2*R*Math.asin(Math.sqrt(x)));}
+function distInfo(l){ const c=CITY_COORDS[norm(l.municipio)];
+ if(c) return {km:haversine(CHAPECO,c),approx:false};
+ const u=UF_CENTROID[l.uf]; if(u) return {km:haversine(CHAPECO,u),approx:true};
+ return null; }
+function distChip(l){ const d=distInfo(l); if(!d) return "";
+ const cor=d.km<=120?"#16a34a":d.km<=350?"#0ea5e9":"#94a3b8";
+ const txt=d.km===0?"Chapecó":`${d.approx?"~":""}${d.km} km`;
+ return `<span title="Distância de Chapecó${d.approx?" (aprox. pela UF)":""}" style="font-size:11px;font-weight:800;color:${cor}">📏 ${txt}</span>`; }
 
 function dnum(l){ const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(l.data||""); return m?(+m[3]*10000+(+m[2])*100+(+m[1])):0; }
 function ageInfo(l){ const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(l.data||""); if(!m) return {old:false,year:""};
@@ -255,6 +300,98 @@ function faseChip(l){ if(!l.fase) return ""; const i=FASES.indexOf(l.fase);
   return `<span style="font-size:9.5px;font-weight:800;color:#fff;background:${FCOLOR[l.fase]||'#94a3b8'};padding:2px 7px;border-radius:20px">⚙ ${l.fase}${i>=0?` ${i+1}/${FASES.length}`:""}</span>`; }
 function srcLink(l){ return l.link?`<a href="${l.link}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🔗 fonte</a>`:""; }
 
+function ofertaCivilObras(l){
+  const M={
+   "Armazenagem / Silos":"Obras civis de armazéns graneleiros, fundações de silos, moegas/túneis e casa de máquinas; terraplenagem e pavimento industrial.",
+   "Transbordo / Moega / Tombador":"Fundações e estruturas de moega/tombador, plataformas e pavimento de pátio.",
+   "Fábrica de Ração":"Prédio de produção e expedição, fundações de equipamentos, pisos de alta resistência e estrutura industrial.",
+   "Sementeira / UBS":"Galpão de beneficiamento, fundações de máquinas, pisos industriais e áreas de armazenagem.",
+   "Frigorífico / Granja":"Galpões industriais com requisitos sanitários (SIF), câmaras, pisos especiais, ETE e utilidades.",
+   "Secador / Pré-limpeza":"Fundações e estrutura de secador/pré-limpeza, casa de máquinas e fechamentos.",
+   "Estrutura Industrial Geral":"Estrutura industrial completa: fundações, estrutura, fechamentos, cobertura e pisos.",
+   "Galpão / Logística":"Galpão logístico, pisos nivelados de alta planicidade, docas, pátios e pavimentos.",
+   "Supermercado / Atacadão":"Obra comercial: estrutura, fechamentos, acabamento, estacionamento e áreas técnicas.",
+   "Agropecuária / Loja":"Obra comercial/varejo: estrutura, fechamentos e acabamento.",
+   "Centro de Distribuição":"Galpão de grande vão, piso industrial, docas e pátio de manobra.",
+   "Escola / Creche":"Edificação institucional: estrutura, alvenaria/acabamentos, instalações e acessibilidade (NBR 9050).",
+   "Saúde (UBS/UPA/Hospital)":"Edificação de saúde: estrutura, instalações, áreas técnicas e acessibilidade conforme normas.",
+   "Segurança (Bombeiros/PM/Delegacia)":"Edificação institucional: estrutura, garagens/guarita, alvenaria e acabamentos.",
+   "Obra Pública / Institucional":"Edificação pública: estrutura, fechamentos, instalações, acessibilidade e cumprimento de edital."
+  };
+  return M[l.tipoObra]||"Execução de obra civil/industrial conforme escopo do projeto.";
+}
+function roteiroAbordagem(l){
+  const canal=l.canal||alvoPorOrg(l).canal;
+  if(l.categoria==="Licitação"){
+    return ["Baixar o edital no PNCP e ler exigências de habilitação.",
+            "Conferir prazo de proposta, planilha orçamentária e visita técnica.",
+            "Checar atestados de capacidade técnica exigidos.",
+            "Montar e enviar a proposta dentro do prazo do edital.",
+            "Canal: "+canal+"."];
+  }
+  const f=l.fase||"";
+  if(f==="Licença"||f==="Financiamento")
+    return ["Obra em fase inicial — momento ideal para se apresentar.",
+            "Contatar a Engenharia/Suprimentos: "+canal+".",
+            "Apresentar portfólio da Civil Obras no tipo de obra.",
+            "Pedir inclusão na cotação assim que o projeto fechar."];
+  if(f==="Cotação")
+    return ["Confirmar escopo, prazo e local da obra.",
+            "Enviar proposta técnica + comercial.",
+            "Acompanhar a decisão de perto. Canal: "+canal+"."];
+  if(f==="Em obra")
+    return ["Obra em andamento — focar em pacotes/subcontratação e fases seguintes.",
+            "Mapear o que ainda falta executar. Canal: "+canal+"."];
+  return ["Confirmar estágio da obra e o decisor.",
+          "Apresentar a Civil Obras e pedir entrada na cotação.",
+          "Canal: "+canal+"."];
+}
+function emailLead(l){
+  const onde=`${l.municipio}/${l.uf}`;
+  if(l.categoria==="Licitação"){
+    return {assunto:`Civil Obras — interesse no certame: ${l.tipoObra} em ${onde}`,
+     corpo:`Prezados do setor de Licitações, bom dia.
+
+A Civil Obras (Chapecó/SC), construtora de obras industriais, comerciais e institucionais, tem interesse em participar do certame da obra de ${l.tipoObra} em ${onde}.
+
+Para acompanharmos o processo, poderiam nos informar:
+1) a data de publicação do edital no PNCP e o cronograma da licitação;
+2) se haverá visita técnica e a data;
+3) um contato direto (telefone/WhatsApp) do setor responsável.
+
+Pedimos, por gentileza, que nos incluam nas comunicações sobre este processo. Ficamos à disposição.
+
+Atenciosamente,
+[SEU NOME] · Civil Obras — Engenharia & Construção
+[telefone] · [e-mail] · [site]`};
+  }
+  return {assunto:`Civil Obras — interesse na obra ${l.tipoObra} em ${onde}`,
+   corpo:`Prezados, bom dia.
+
+Sou [SEU NOME], da Civil Obras (Chapecó/SC), construtora com atuação em obras industriais, agroindustriais e comerciais no Sul e Centro-Oeste do país.
+
+Tomamos conhecimento do projeto de ${l.tipoObra} da ${l.empresa} em ${onde} e gostaríamos de manifestar interesse em participar da cotação da obra civil. Temos experiência neste tipo de obra e podemos contribuir com prazo e qualidade.
+
+Para darmos sequência, poderiam nos informar:
+1) o responsável pelo setor de Engenharia/Suprimentos desta obra (decisor);
+2) um telefone/WhatsApp de contato direto.
+
+Em retorno, enviamos nosso portfólio e referências, e ficamos à disposição para uma visita ou reunião.
+
+Atenciosamente,
+[SEU NOME] · Civil Obras — Engenharia & Construção
+[telefone] · [e-mail] · [site]`};
+}
+function emailDe(l){ const m=/[\w.+-]+@[\w.-]+\.\w{2,}/.exec(`${l.email||""} ${l.canal||""}`); return m?m[0]:""; }
+function copiarEmail(id){ const l=LEADS.find(x=>x.id===id); if(!l)return; const e=emailLead(l);
+  const txt=`Assunto: ${e.assunto}\n\n${e.corpo}`;
+  const ok=()=>alert("E-mail copiado! Cole no seu cliente de e-mail.\n\nNão esqueça de trocar [SEU NOME] e seus contatos antes de enviar.");
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok,()=>fallbackCopy(txt,ok)); }
+  else fallbackCopy(txt,ok); }
+function fallbackCopy(txt,ok){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");ok();}catch(e){alert("Copie manualmente:\n\n"+txt);} document.body.removeChild(ta); }
+function abrirEmail(id){ const l=LEADS.find(x=>x.id===id); if(!l)return; const e=emailLead(l); const to=emailDe(l);
+  window.open(`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(e.assunto)}&body=${encodeURIComponent(e.corpo)}`,"_blank"); }
 function dossie(id){ const l=LEADS.find(x=>x.id===id); if(!l)return; const sc=score(l);
   const w=window.open("","_blank"); if(!w){alert("Permita pop-ups para gerar o dossiê.");return;}
   const linha=(rot,val)=> val?`<tr><td style="font-weight:700;color:#18244C;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top">${rot}</td><td style="padding:5px 0;color:#333">${val}</td></tr>`:"";
@@ -266,19 +403,25 @@ function dossie(id){ const l=LEADS.find(x=>x.id===id); if(!l)return; const sc=sc
       <div style="color:#E85A0C;font-weight:700">${l.empresa} — ${localTxt(l)}</div>
     </div>
     <table style="border-collapse:collapse;font-size:14px;width:100%">
+      ${linha("Local", localTxt(l))}
+      ${(()=>{const d=distInfo(l);return d?linha("Distância de Chapecó",`${d.approx?"~":""}${d.km} km${d.approx?" (aprox.)":""}`):"";})()}
       ${linha("Tipo de obra", l.tipoObra)}
       ${linha("Valor estimado", l.valor?brl(l.valor):"")}
       ${linha("Fase", l.fase)}
       ${linha("Sinal / origem", l.fonte)}
       ${linha("Data da publicação", l.data)}
-      ${linha("Decisor", (l.contato&&l.contato!=="A identificar")?`${l.contato}${l.cargo&&l.cargo!=="A identificar"?" ("+l.cargo+")":""}`:"a identificar")}
+      ${linha("Quem procurar", (l.contato&&l.contato!=="A identificar")?`${l.contato}${l.cargo&&l.cargo!=="A identificar"?" ("+l.cargo+")":""}`:`${alvoPorOrg(l).cargo} (cargo-alvo)`)}
       ${linha("Telefone", l.tel)}
       ${linha("E-mail", l.email)}
-      ${linha("Canal de Engenharia / Compras", l.canal)}
+      ${linha("Canal de Engenharia / Compras", l.canal||alvoPorOrg(l).canal)}
       ${linha("Score", sc+"/100 ("+temp(sc)+")")}
       ${linha("Fonte", l.link)}
       ${linha("Notas", l.notas)}
     </table>
+    <h3 style="color:#18244C;margin:18px 0 6px">O que a Civil Obras pode fornecer aqui</h3>
+    <p style="margin:0;color:#333">${ofertaCivilObras(l)}</p>
+    <h3 style="color:#18244C;margin:18px 0 6px">Roteiro de abordagem</h3>
+    <ol style="margin:0;padding-left:18px;color:#333">${roteiroAbordagem(l).map(p=>`<li style="margin-bottom:3px">${p}</li>`).join("")}</ol>
     ${logs}
     <p style="margin-top:24px;font-size:11px;color:#888">Gerado pelo Prospecta Obras · Civil Obras. Dados de fonte pública; decisor a confirmar pelos canais oficiais.</p>
     <script>window.onload=()=>window.print();<\/script>
@@ -300,7 +443,10 @@ function render(){
     const maxS=Math.max(1,...STATUSES.map(s=>LEADS.filter(l=>l.status===s).length));
     const obras=WORK_TYPES.map(t=>({t,n:LEADS.filter(l=>l.tipoObra===t).length})).filter(x=>x.n);
     const maxO=Math.max(1,...obras.map(o=>o.n));
-    const hot=ativos.map(l=>({...l,s:score(l)})).sort((a,b)=>b.s-a.s).slice(0,6);
+    const hotScore=l=>{ const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(l.data||""); let bonus=0;
+      if(m){ const d=new Date(+m[3],+m[2]-1,+m[1]); const days=(Date.now()-d.getTime())/864e5; bonus=days<=30?18:days<=90?10:0; }
+      return score(l)+bonus; };
+    const hot=ativos.map(l=>({...l,s:score(l),hs:hotScore(l)})).sort((a,b)=>b.hs-a.hs).slice(0,6);
     document.getElementById("view-painel").innerHTML=`
       <div class="row" style="margin-bottom:16px">
         <div class="card kpi"><div class="lab">Pipeline ativo</div><div class="val" style="color:${ORANGE}">${brl(pipe)}</div><div class="sub2">${ativos.length} alvos em andamento</div></div>
@@ -318,16 +464,18 @@ function render(){
         </div>
       </div>
       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-          <h3 style="margin:0;color:${ORANGE}">🔥 Prioridade da semana</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:8px">
+          <h3 style="margin:0;color:${ORANGE}">🔥 Obras quentes da semana</h3>
           <div style="display:flex;gap:8px">
             <button class="btn btn-g" onclick="importCSV()">Importar CSV</button>
             <button class="btn btn-g" onclick="exportCSV()">Exportar</button>
           </div>
         </div>
-        ${hot.length?hot.map(l=>`<div class="lead" style="border:none;border-bottom:1px solid #f0f2f8;border-radius:0;padding:10px 0;margin:0">
+        <div style="font-size:11px;color:#9aa2bb;font-weight:700;margin-bottom:12px">Ranking por potencial + recência (sinais dos últimos 30 dias pesam mais)</div>
+        ${hot.length?hot.map((l,i)=>`<div class="lead" style="border:none;border-bottom:1px solid #f0f2f8;border-radius:0;padding:10px 0;margin:0">
+          <div style="font-weight:900;font-size:15px;color:${i===0?ORANGE:'#c0c6d8'};width:26px;text-align:center;flex:none">${i+1}º</div>
           ${ringHTML(l.s)}
-          <div class="body" onclick="openLead('${l.id}')"><div class="nm">${l.empresa}</div><div class="meta"><span>${l.tipoObra}</span><span>${l.municipio}/${l.uf}</span>${l.data?`<span>🗓 ${l.data}</span>`:""}</div></div>
+          <div class="body" onclick="openLead('${l.id}')"><div class="nm">${l.empresa}${l.categoria==="Licitação"?` <span class="badge" style="background:#7c3aed">⚖</span>`:""}</div><div class="meta"><span>${l.tipoObra}</span><span>${l.municipio}/${l.uf}</span>${distChip(l)}${l.data?`<span>🗓 ${l.data}</span>`:""}</div></div>
           <div style="text-align:right"><div style="font-weight:800;font-size:12.5px">${brl(l.valor)}</div><span style="font-size:10px;font-weight:800;color:${SCOLOR[l.status]}">${l.status}</span></div>
         </div>`).join(""):'<p style="color:#9aa2bb;font-size:13px">Nenhum alvo ativo. Importe o CSV do robô ou cadastre um lead.</p>'}
       </div>`;
@@ -353,7 +501,7 @@ function render(){
   }
 
   if(VIEW==="leads"){
-    window._f=window._f||{q:"",uf:"Todos",obra:"Todos",st:"Todos",hideOld:false,hideLicit:false};
+    window._f=window._f||{q:"",uf:"Todos",obra:"Todos",st:"Todos",hideOld:false,hideLicit:false,sortNear:false};
     const f=window._f;
     let list=LEADS.filter(l=>{
       if(f.uf!=="Todos"&&l.uf!==f.uf)return false;
@@ -362,7 +510,9 @@ function render(){
       if(f.hideOld&&ageInfo(l).old)return false;
       if(f.hideLicit&&l.categoria==="Licitação")return false;
       if(f.q&&!(`${l.empresa} ${l.municipio} ${l.tipoObra} ${l.contato}`.toLowerCase().includes(f.q.toLowerCase())))return false;
-      return true;}).sort((a,b)=> dnum(b)-dnum(a) || score(b)-score(a));
+      return true;}).sort((a,b)=> f.sortNear
+        ? ((distInfo(a)?distInfo(a).km:99999)-(distInfo(b)?distInfo(b).km:99999) || score(b)-score(a))
+        : (dnum(b)-dnum(a) || score(b)-score(a)));
     const opt=(arr,sel)=>["Todos",...arr].map(o=>`<option ${o===sel?"selected":""}>${o}</option>`).join("");
     document.getElementById("view-leads").innerHTML=`
       <div class="row" style="margin-bottom:10px">
@@ -381,13 +531,16 @@ function render(){
       <label style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#5a627d;margin-bottom:12px;cursor:pointer">
         <input type="checkbox" style="width:auto" ${f.hideLicit?"checked":""} onchange="window._f.hideLicit=this.checked;render()"/> Ocultar licitações (mostrar só obras privadas)
       </label>
-      <div style="font-size:11.5px;color:#9aa2bb;font-weight:700;margin-bottom:8px">${list.length} de ${LEADS.length} alvos · ordenados por data</div>
+      <label style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#5a627d;margin-bottom:12px;cursor:pointer">
+        <input type="checkbox" style="width:auto" ${f.sortNear?"checked":""} onchange="window._f.sortNear=this.checked;render()"/> 📏 Ordenar por proximidade de Chapecó (mais perto primeiro)
+      </label>
+      <div style="font-size:11.5px;color:#9aa2bb;font-weight:700;margin-bottom:8px">${list.length} de ${LEADS.length} alvos · ordenados por ${f.sortNear?"proximidade de Chapecó":"data"}</div>
       ${list.map(l=>{const sc=score(l); return `<div class="lead">
         ${ringHTML(sc)}
         <div class="body" onclick="openLead('${l.id}')">
           <div><span class="nm">${l.empresa}</span><span class="badge" style="background:${SCOLOR[l.status]}">${l.status}</span>${l.categoria==="Licitação"?`<span class="badge" style="background:#7c3aed">⚖ Licitação</span>`:""}${ageBadge(l)}</div>
           <div style="font-size:12px;color:#7a83a0;font-weight:600;margin-top:3px">${l.tipoObra} · <span style="color:#aeb4c9">${l.fonte}</span> ${faseChip(l)}</div>
-          <div class="meta"><span>📍 ${localTxt(l)}</span><a href="${mapLink(l)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🗺 mapa</a>${srcLink(l)}<span>${decisorTxt(l)}</span>${l.data?`<span>🗓 ${l.data}</span>`:""}<span style="color:${ORANGE};font-weight:800">${brl(l.valor)}</span></div>
+          <div class="meta"><span>📍 ${localTxt(l)}</span>${distChip(l)}<a href="${mapLink(l)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🗺 mapa</a>${srcLink(l)}<span>${decisorTxt(l)}</span>${l.data?`<span>🗓 ${l.data}</span>`:""}<span style="color:${ORANGE};font-weight:800">${brl(l.valor)}</span></div>
         </div>
         <button class="del" onclick="rmLead('${l.id}')">🗑</button>
       </div>`;}).join("")||'<div style="text-align:center;color:#9aa2bb;padding:30px;font-size:13px">Nenhum alvo com esses filtros.</div>'}`;
@@ -417,11 +570,11 @@ function openLead(id){
     <label class="f"><span>Tipo de obra</span><select id="m_tipoObra">${sel(WORK_TYPES,EDIT.tipoObra)}</select></label>
     <div class="row"><label class="f" style="flex:1"><span>Sinal / origem</span><select id="m_fonte">${sel(SOURCES,EDIT.fonte)}</select></label>
       <label class="f" style="flex:1"><span>Valor (R$)</span><input id="m_valor" inputmode="numeric" value="${EDIT.valor||""}" placeholder="15000000"/></label></div>
-    <div class="row"><label class="f" style="flex:1"><span>Decisor (contato)</span><input id="m_contato" value="${EDIT.contato||""}"/></label>
+    <div class="row"><label class="f" style="flex:1"><span>Decisor (contato)</span><input id="m_contato" value="${EDIT.contato||""}" placeholder="Preencha quando tiver um nome legítimo (indicação, feira, conversa)"/></label>
       <label class="f" style="flex:1"><span>Cargo do decisor</span><select id="m_cargo">${sel(ROLES,EDIT.cargo)}</select></label></div>
     <div class="row"><label class="f" style="flex:1"><span>Telefone</span><input id="m_tel" value="${EDIT.tel||""}"/></label>
       <label class="f" style="flex:1"><span>E-mail</span><input id="m_email" value="${EDIT.email||""}"/></label></div>
-    <label class="f"><span>Canal de Engenharia / Compras (portal, e-mail, telefone)</span><input id="m_canal" value="${EDIT.canal||""}" placeholder="Ex.: portal do fornecedor, e-mail de suprimentos"/></label>
+    <label class="f"><span>Canal de Engenharia / Compras (portal, e-mail, telefone) <button type="button" onclick="const v=alvoPorOrg({org:document.getElementById('m_org').value});document.getElementById('m_canal').value=v.canal" style="font-size:10px;font-weight:800;color:#fff;background:${ORANGE};border:none;border-radius:6px;padding:2px 7px;cursor:pointer;margin-left:6px">↪ sugerir canal oficial</button></span><input id="m_canal" value="${EDIT.canal||""}" placeholder="Ex.: portal do fornecedor, e-mail de suprimentos, edital no PNCP"/></label>
     <div class="row"><label class="f" style="flex:1"><span>Etapa do funil</span><select id="m_status">${sel(STATUSES,EDIT.status)}</select></label>
       <label class="f" style="flex:1"><span>Fase da obra</span><select id="m_fase"><option value="">— a definir —</option>${FASES.map(o=>`<option ${o===EDIT.fase?"selected":""}>${o}</option>`).join("")}</select></label></div>
     <div class="row"><label class="f" style="flex:1"><span>Data da publicação</span><input id="m_data" value="${EDIT.data||""}" placeholder="dd/mm/aaaa"/></label>
@@ -431,7 +584,9 @@ function openLead(id){
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b style="font-size:12.5px">Histórico de contato</b><button class="btn btn-g" style="font-size:11px;padding:5px 10px" onclick="addLog('${id}')">+ Registrar</button></div>
       ${(EDIT.log&&EDIT.log.length)?EDIT.log.map(e=>`<div style="font-size:11.5px;color:#5a627d;border-bottom:1px solid #eef1f7;padding:4px 0"><b>${e.t}</b> — ${e.txt}</div>`).join(""):'<div style="font-size:11.5px;color:#aeb4c9">Nenhum contato registrado ainda.</div>'}
     </div>`:""}
-    <div class="row" style="margin-top:4px">
+    <div class="row" style="margin-top:4px;flex-wrap:wrap">
+      ${id?`<button class="btn btn-o" onclick="copiarEmail('${id}')">📧 Copiar e-mail</button>`:""}
+      ${id?`<button class="btn btn-g" onclick="abrirEmail('${id}')" title="Abrir no seu app de e-mail">✉️ Abrir</button>`:""}
       ${id?`<button class="btn btn-g" onclick="dossie('${id}')">🖨 Dossiê</button>`:""}
       ${id?`<button class="btn" style="background:#fff;color:#dc2626;border:1px solid #f3c5c5" onclick="rmLead('${id}');closeModal()">Excluir</button>`:""}
       <button class="btn btn-o" style="flex:1;justify-content:center;padding:12px" onclick="saveLead('${id||""}')">✓ Salvar alvo</button>
