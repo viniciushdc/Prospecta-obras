@@ -7,10 +7,13 @@ WORK_TYPES = [
     "Sementeira / UBS", "Frigorífico / Granja", "Secador / Pré-limpeza",
     "Estrutura Industrial Geral", "Galpão / Logística",
     "Supermercado / Atacadão", "Agropecuária / Loja", "Centro de Distribuição",
+    "Escola / Creche", "Saúde (UBS/UPA/Hospital)",
+    "Segurança (Bombeiros/PM/Delegacia)", "Obra Pública / Institucional",
 ]
 ORG_TYPES = [
     "Cooperativa", "Sementeira", "Agroindústria", "Cerealista", "Trading",
     "Produtor / Fazenda", "Indústria de Ração", "Frigorífico", "Varejo / Comércio",
+    "Órgão Público / Prefeitura",
 ]
 SOURCES = [
     "Licença Ambiental", "Plano Safra / PCA", "Notícia / Anúncio", "CONAB / Déficit",
@@ -25,7 +28,8 @@ UFS = ["PR", "RS", "SC", "MS", "GO", "MT", "SP", "MG"]
 
 # Cabeçalho do CSV — AGORA com a coluna 'data' (data de publicação da fonte)
 CSV_HEADER = ["empresa", "org", "uf", "municipio", "local", "tipoObra", "fonte",
-              "valor", "contato", "cargo", "tel", "email", "status", "data", "notas"]
+              "valor", "contato", "cargo", "tel", "email", "canal", "status",
+              "fase", "data", "link", "notas"]
 
 # ---- Filtro de relevância (só o que cheira a OBRA segue p/ a API) ----
 KEYWORDS_OBRA = [
@@ -39,6 +43,11 @@ KEYWORDS_OBRA = [
     "construção", "construcao", "edificação", "obra", "planta industrial", "agroindustrial",
     "supermercado", "atacadão", "atacadao", "atacarejo", "atacado", "agropecuária", "agropecuaria",
     "centro de distribuição", "centro de distribuicao", "centro logístico", "centro logistico", "loja", "varejo",
+    "escola", "escolas", "creche", "cmei", "emei", "ginásio", "ginasio", "quadra poliesportiva",
+    "posto de saúde", "posto de saude", "unidade de saúde", "unidade de saude", "centro de saúde", "centro de saude",
+    "upa", "unidade de pronto atendimento", "hospital", "pronto atendimento", "ambulatório", "ambulatorio",
+    "quartel", "corpo de bombeiros", "bombeiros", "batalhão", "batalhao", "delegacia",
+    "centro administrativo", "paço municipal", "paco municipal", "prefeitura", "terminal rodoviário", "rodoviária", "rodoviaria",
 ]
 
 # ---- Consultas de notícia (Google News) — ampliadas p/ mais obras ----

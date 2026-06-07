@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prospecta Obras — Civil Obras</title>
 <link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="icon-192.png" />
 <meta name="theme-color" content="#18244C" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="Prospecta Obras" />
@@ -73,6 +76,17 @@
 <body>
 
 <!-- ===== BARRA INSTITUCIONAL (logos) ===== -->
+<header class="app">
+  <div class="t" style="display:flex;align-items:center;gap:11px">
+    <img src="data:image/png;base64,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" alt="Prospecta Obras" style="height:44px;width:44px;display:block;flex-shrink:0"/>
+    <div>
+      <b>PROSPECTA <span>OBRAS</span></b>
+      <small>Inteligência comercial · <span id="syncMsg">carregando…</span></small>
+    </div>
+  </div>
+  <button class="btn btn-o" onclick="openLead()">+ Lead</button>
+</header>
+
 <div class="instbar">
   <div class="co-mark">
     <!-- Para usar o logo oficial: salve 'logo-civilobras.png' nesta mesma pasta -->
@@ -97,11 +111,6 @@
   </div>
 </div>
 
-<header class="app">
-  <div class="t"><b>PROSPECTA <span>OBRAS</span></b><small>Inteligência comercial agro &amp; industrial · <span id="syncMsg">carregando…</span></small></div>
-  <button class="btn btn-o" onclick="openLead()">+ Lead</button>
-</header>
-
 <main>
   <div id="view-painel"></div>
   <div id="view-funil" style="display:none"></div>
@@ -120,13 +129,23 @@
 const NAVY="#18244C", ORANGE="#E85A0C";
 const STATUSES=["Mapeado","Qualificado","Contato","Reunião","Proposta","Negociação","Ganho","Perdido"];
 const SCOLOR={Mapeado:"#64748b",Qualificado:"#0ea5e9",Contato:"#6366f1","Reunião":"#a855f7",Proposta:ORANGE,"Negociação":"#eab308",Ganho:"#16a34a",Perdido:"#dc2626"};
-const WORK_TYPES=["Armazenagem / Silos","Transbordo / Moega / Tombador","Fábrica de Ração","Sementeira / UBS","Frigorífico / Granja","Secador / Pré-limpeza","Estrutura Industrial Geral","Galpão / Logística","Supermercado / Atacadão","Agropecuária / Loja","Centro de Distribuição"];
-const ORG_TYPES=["Cooperativa","Sementeira","Agroindústria","Cerealista","Trading","Produtor / Fazenda","Indústria de Ração","Frigorífico","Varejo / Comércio"];
+const WORK_TYPES=["Armazenagem / Silos","Transbordo / Moega / Tombador","Fábrica de Ração","Sementeira / UBS","Frigorífico / Granja","Secador / Pré-limpeza","Estrutura Industrial Geral","Galpão / Logística","Supermercado / Atacadão","Agropecuária / Loja","Centro de Distribuição","Escola / Creche","Saúde (UBS/UPA/Hospital)","Segurança (Bombeiros/PM/Delegacia)","Obra Pública / Institucional"];
+const ORG_TYPES=["Cooperativa","Sementeira","Agroindústria","Cerealista","Trading","Produtor / Fazenda","Indústria de Ração","Frigorífico","Varejo / Comércio","Órgão Público / Prefeitura"];
 const SOURCES=["Licença Ambiental","Plano Safra / PCA","Notícia / Anúncio","CONAB / Déficit","Licitação (PNCP)","Indicação","Feira / Evento","Prospecção Fria"];
 const ROLES=["Presidente","Diretor","Gerente de Projetos","Gerente Industrial","Engenheiro","Comprador / Suprimentos","Outro","A identificar"];
 const UFS=["PR","RS","SC","MS","GO","MT","SP","MG"];
 const PRI=["PR","RS","SC","MS","GO"];
-const HEADER=["empresa","org","uf","municipio","local","tipoObra","fonte","valor","contato","cargo","tel","email","status","data","notas"];
+const HEADER=["empresa","org","uf","municipio","local","tipoObra","fonte","valor","contato","cargo","tel","email","canal","status","fase","data","link","notas"];
+const FASES=["Licença","Financiamento","Cotação","Em obra","Pós-obra"];
+const FCOLOR={"Licença":"#0ea5e9","Financiamento":"#6366f1","Cotação":ORANGE,"Em obra":"#16a34a","Pós-obra":"#94a3b8"};
+function fix(l){
+  const CANAIS={ "C.Vale":"cvale.com.br/site/fornecedores (Setor de Compras)", "Coamo":"servicos.coamo.com.br/cotacaoonline", "Cocamar":"portal.cocamar.com.br · controle@cocamar.com.br" };
+  const FASE_DE={ "Plano Safra / PCA":"Financiamento", "Licença Ambiental":"Licença", "Licitação (PNCP)":"Cotação" };
+  const ehLicit = l.categoria || (((l.fonte||"").indexOf("Licitação")>=0 || (l.fonte||"").indexOf("DOU")>=0) ? "Licitação" : "Privada");
+  return {...l, local:l.local||"",
+    link:l.link||("https://www.google.com/search?q="+encodeURIComponent((l.empresa||"")+" "+(l.municipio||"")+" obra")),
+    fase:l.fase||FASE_DE[l.fonte]||"", canal:l.canal||CANAIS[l.empresa]||"", log:l.log||[], categoria:ehLicit};
+}
 const SRC_SCORE={"Licença Ambiental":30,"Plano Safra / PCA":28,"Notícia / Anúncio":24,"Licitação (PNCP)":22,"CONAB / Déficit":15,"Indicação":20,"Feira / Evento":10,"Prospecção Fria":5};
 const ROLE_SCORE={Presidente:20,Diretor:20,"Gerente de Projetos":16,"Gerente Industrial":16,Engenheiro:12,"Comprador / Suprimentos":10,Outro:4,"A identificar":0};
 
@@ -149,7 +168,10 @@ const SEED=[
  {empresa:"Coamo",org:"Cooperativa",uf:"MS",municipio:"Dourados",local:"Distrito de Itahum e município de Amambai",tipoObra:"Armazenagem / Silos",fonte:"Notícia / Anúncio",valor:191000000,contato:"Airton Galinari",cargo:"Presidente",tel:"",email:"",status:"Mapeado",data:"03/02/2026",notas:"R$191mi em 2 unidades (Itahum/Dourados e Amambai), recém-inauguradas - relacionamento e próximas fases | opresenterural.com.br"},
  {empresa:"Cooperativa Santa Clara",org:"Cooperativa",uf:"RS",municipio:"",local:"",tipoObra:"Estrutura Industrial Geral",fonte:"Notícia / Anúncio",valor:200000000,contato:"A identificar",cargo:"A identificar",tel:"",email:"",status:"Mapeado",data:"02/03/2026",notas:"R$200mi entre 2026-2027 para ampliar produção, distribuição e armazenamento (setor lácteo) - sinal forte e adiantado | guaiba.online"},
  {empresa:"Grupo Basso & Pancotte",org:"Agroindústria",uf:"RS",municipio:"Nova Alvorada",local:"",tipoObra:"Estrutura Industrial Geral",fonte:"Notícia / Anúncio",valor:50000000,contato:"A identificar",cargo:"A identificar",tel:"",email:"",status:"Mapeado",data:"10/10/2024",notas:"R$50mi+ unidade fabril de produtos agropecuários, veterinários e pets; verificar status | estado.rs.gov.br"},
-].map((l,i)=>({...l,local:l.local||"",id:"seed"+i,criado:Date.now()-i*86400000}));
+ {empresa:"Aurora Coop",org:"Cooperativa",uf:"SC",municipio:"São Miguel do Oeste",local:"",tipoObra:"Frigorífico / Granja",fonte:"Notícia / Anúncio",valor:500000000,contato:"Marcos Antonio Zordan",cargo:"Diretor",tel:"",email:"",status:"Mapeado",fase:"Financiamento",data:"16/02/2026",link:"https://www.peperi.com.br/noticias/25-02-2026-cooperativa-confirma-investimento-de-meio-bilhao-para-novo-frigorifico-em-sao-miguel-do-oeste/",notas:"NOVO FRIGORÍFICO R$500mi (pacote R$1,1bi/2026). Substitui planta de 1980; 2→5 mil suínos/dia; conclusão 2º sem/2027. PERTO DE CHAPECÓ — prioridade."},
+ {empresa:"Coamo",org:"Cooperativa",uf:"PR",municipio:"Campina da Lagoa",local:"",tipoObra:"Armazenagem / Silos",fonte:"Notícia / Anúncio",valor:110000000,contato:"Edenilson C. de Oliveira",cargo:"Diretor",tel:"",email:"",status:"Mapeado",fase:"Em obra",data:"05/08/2024",link:"https://www.portaldoagronegocio.com.br/gestao-rural/gestao/noticias/coamo-inicia-construcao-de-seis-novos-silos-no-parana-com-investimento-de-r-110-milhoes",notas:"Novo entreposto: 6 silos, 60 mil t, escritório + armazém de insumos + agência Credicoamo. Verificar fases seguintes."},
+ {empresa:"Aurora Coop",org:"Cooperativa",uf:"RS",municipio:"Sarandi",local:"",tipoObra:"Frigorífico / Granja",fonte:"Notícia / Anúncio",valor:0,contato:"A identificar",cargo:"A identificar",tel:"",email:"",status:"Mapeado",fase:"Financiamento",data:"16/02/2026",link:"https://rco.com.br/noticias/agronegocio/aurora-coop-investira-r-11-bilhao-e-construira-novo-frigorifico-em-sao-miguel-do-oeste",notas:"Ampliações previstas no pacote R$1,1bi/2026 (também unidade de Erechim/RS)."},
+].map((l,i)=>({...fix(l), id:"seed"+i, criado:Date.now()-i*86400000}));
 
 const uid=()=> "l"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const brl=n=> (Number(n)||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
@@ -161,7 +183,7 @@ function score(l){let s=0; s+=SRC_SCORE[l.fonte]||0; if(l.tipoObra)s+=15; s+=ROL
 const temp=s=> s>=70?"Quente":s>=45?"Morno":"Frio";
 const TCOLOR={Quente:ORANGE,Morno:"#eab308",Frio:"#64748b"};
 
-function load(){ try{const r=localStorage.getItem(KEY); if(r){LEADS=JSON.parse(r); return;}}catch(e){} LEADS=SEED.slice(); save(); }
+function load(){ try{const r=localStorage.getItem(KEY); if(r){LEADS=JSON.parse(r).map(fix); return;}}catch(e){} LEADS=SEED.slice(); save(); }
 
 // Busca o leads.json (gerado pelo robô) e funde com o que já existe,
 // preservando o que você já mexeu (funil, notas). Só adiciona os novos.
@@ -176,7 +198,7 @@ async function syncRemote(){
     remote.forEach(r=>{
       if(!r || !r.empresa) return;
       const k = chave(r);
-      if(!seen.has(k)){ seen.add(k); LEADS.unshift({...r, id:uid(), criado:Date.now()}); add++; }
+      if(!seen.has(k)){ seen.add(k); LEADS.unshift({...fix(r), id:uid(), criado:Date.now()}); add++; }
     });
     if(add){ save(); render(); }
     const el=document.getElementById('syncMsg');
@@ -198,8 +220,8 @@ function parseCSV(text){ const lines=text.replace(/\r/g,"").split("\n").filter(x
       fonte:SOURCES.includes(g("fonte"))?g("fonte"):"Prospecção Fria",
       valor:Number(String(g("valor")).replace(/\D/g,""))||0,
       contato:g("contato")||"A identificar",cargo:ROLES.includes(g("cargo"))?g("cargo"):"A identificar",
-      tel:g("tel"),email:g("email"),status:STATUSES.includes(g("status"))?g("status"):"Mapeado",
-      data:g("data"),notas:g("notas"),criado:Date.now()};
+      tel:g("tel"),email:g("email"),canal:g("canal"),status:STATUSES.includes(g("status"))?g("status"):"Mapeado",
+      fase:FASES.includes(g("fase"))?g("fase"):"",data:g("data"),link:g("link"),notas:g("notas"),log:[],criado:Date.now()};
   }).filter(l=>l.empresa); }
 
 function importCSV(){ document.getElementById("fileIn").click(); }
@@ -224,6 +246,47 @@ function decisorTxt(l){ const c=l.cargo&&l.cargo!=="A identificar"?l.cargo:""; c
 const mapQuery=l=> encodeURIComponent([l.local,l.municipio,l.uf,"Brasil"].filter(Boolean).join(", "));
 const mapLink=l=> `https://www.google.com/maps/search/?api=1&query=${mapQuery(l)}`;
 const localTxt=l=> l.local?`${l.local}, ${l.municipio}/${l.uf}`:`${l.municipio}/${l.uf}`;
+
+function dnum(l){ const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(l.data||""); return m?(+m[3]*10000+(+m[2])*100+(+m[1])):0; }
+function ageInfo(l){ const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(l.data||""); if(!m) return {old:false,year:""};
+  const d=new Date(+m[3],+m[2]-1,+m[1]); return {old:(Date.now()-d.getTime())/864e5>365, year:m[3]}; }
+function ageBadge(l){ return ageInfo(l).old?`<span class="badge" style="background:#dc2626" title="Publicado há mais de 1 ano — revisar">⚠ +1 ano</span>`:""; }
+function faseChip(l){ if(!l.fase) return ""; const i=FASES.indexOf(l.fase);
+  return `<span style="font-size:9.5px;font-weight:800;color:#fff;background:${FCOLOR[l.fase]||'#94a3b8'};padding:2px 7px;border-radius:20px">⚙ ${l.fase}${i>=0?` ${i+1}/${FASES.length}`:""}</span>`; }
+function srcLink(l){ return l.link?`<a href="${l.link}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🔗 fonte</a>`:""; }
+
+function dossie(id){ const l=LEADS.find(x=>x.id===id); if(!l)return; const sc=score(l);
+  const w=window.open("","_blank"); if(!w){alert("Permita pop-ups para gerar o dossiê.");return;}
+  const linha=(rot,val)=> val?`<tr><td style="font-weight:700;color:#18244C;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top">${rot}</td><td style="padding:5px 0;color:#333">${val}</td></tr>`:"";
+  const logs=(l.log&&l.log.length)?`<h3 style="color:#18244C;margin:18px 0 6px">Histórico de contato</h3><ul style="margin:0;padding-left:18px;color:#333">${l.log.map(e=>`<li>${e.t} — ${e.txt}</li>`).join("")}</ul>`:"";
+  w.document.write(`<html><head><meta charset="utf-8"><title>Dossiê — ${l.empresa}</title></head>
+  <body style="font-family:Arial,sans-serif;max-width:720px;margin:24px auto;color:#333">
+    <div style="border-bottom:4px solid #E85A0C;padding-bottom:10px;margin-bottom:16px">
+      <div style="font-size:22px;font-weight:900;color:#18244C">CIVIL OBRAS · Dossiê de Abordagem</div>
+      <div style="color:#E85A0C;font-weight:700">${l.empresa} — ${localTxt(l)}</div>
+    </div>
+    <table style="border-collapse:collapse;font-size:14px;width:100%">
+      ${linha("Tipo de obra", l.tipoObra)}
+      ${linha("Valor estimado", l.valor?brl(l.valor):"")}
+      ${linha("Fase", l.fase)}
+      ${linha("Sinal / origem", l.fonte)}
+      ${linha("Data da publicação", l.data)}
+      ${linha("Decisor", (l.contato&&l.contato!=="A identificar")?`${l.contato}${l.cargo&&l.cargo!=="A identificar"?" ("+l.cargo+")":""}`:"a identificar")}
+      ${linha("Telefone", l.tel)}
+      ${linha("E-mail", l.email)}
+      ${linha("Canal de Engenharia / Compras", l.canal)}
+      ${linha("Score", sc+"/100 ("+temp(sc)+")")}
+      ${linha("Fonte", l.link)}
+      ${linha("Notas", l.notas)}
+    </table>
+    ${logs}
+    <p style="margin-top:24px;font-size:11px;color:#888">Gerado pelo Prospecta Obras · Civil Obras. Dados de fonte pública; decisor a confirmar pelos canais oficiais.</p>
+    <script>window.onload=()=>window.print();<\/script>
+  </body></html>`); w.document.close(); }
+
+function addLog(id){ const txt=prompt("Registrar contato (ex.: Liguei p/ Suprimentos, pediram cadastro):"); if(!txt)return;
+  const now=new Date().toLocaleDateString("pt-BR");
+  LEADS=LEADS.map(l=> l.id===id?{...l,log:[{t:now,txt:txt.trim()},...(l.log||[])]}:l); save(); closeModal(); openLead(id); }
 
 function render(){
   const ativos=LEADS.filter(l=>l.status!=="Perdido"&&l.status!=="Ganho");
@@ -290,14 +353,16 @@ function render(){
   }
 
   if(VIEW==="leads"){
-    window._f=window._f||{q:"",uf:"Todos",obra:"Todos",st:"Todos"};
+    window._f=window._f||{q:"",uf:"Todos",obra:"Todos",st:"Todos",hideOld:false,hideLicit:false};
     const f=window._f;
     let list=LEADS.filter(l=>{
       if(f.uf!=="Todos"&&l.uf!==f.uf)return false;
       if(f.obra!=="Todos"&&l.tipoObra!==f.obra)return false;
       if(f.st!=="Todos"&&l.status!==f.st)return false;
+      if(f.hideOld&&ageInfo(l).old)return false;
+      if(f.hideLicit&&l.categoria==="Licitação")return false;
       if(f.q&&!(`${l.empresa} ${l.municipio} ${l.tipoObra} ${l.contato}`.toLowerCase().includes(f.q.toLowerCase())))return false;
-      return true;}).sort((a,b)=>score(b)-score(a));
+      return true;}).sort((a,b)=> dnum(b)-dnum(a) || score(b)-score(a));
     const opt=(arr,sel)=>["Todos",...arr].map(o=>`<option ${o===sel?"selected":""}>${o}</option>`).join("");
     document.getElementById("view-leads").innerHTML=`
       <div class="row" style="margin-bottom:10px">
@@ -305,18 +370,24 @@ function render(){
         <button class="btn btn-n" onclick="importCSV()" title="Importar CSV do robô">⬆</button>
         <button class="btn btn-n" onclick="exportCSV()" title="Exportar">⬇</button>
       </div>
-      <div class="row" style="margin-bottom:14px">
+      <div class="row" style="margin-bottom:10px">
         <select onchange="window._f.uf=this.value;render()" style="flex:1">${opt(UFS,f.uf)}</select>
         <select onchange="window._f.obra=this.value;render()" style="flex:1">${opt(WORK_TYPES,f.obra)}</select>
         <select onchange="window._f.st=this.value;render()" style="flex:1">${opt(STATUSES,f.st)}</select>
       </div>
-      <div style="font-size:11.5px;color:#9aa2bb;font-weight:700;margin-bottom:8px">${list.length} de ${LEADS.length} alvos</div>
+      <label style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#5a627d;margin-bottom:8px;cursor:pointer">
+        <input type="checkbox" style="width:auto" ${f.hideOld?"checked":""} onchange="window._f.hideOld=this.checked;render()"/> Ocultar leads com +1 ano (provável desqualificado)
+      </label>
+      <label style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#5a627d;margin-bottom:12px;cursor:pointer">
+        <input type="checkbox" style="width:auto" ${f.hideLicit?"checked":""} onchange="window._f.hideLicit=this.checked;render()"/> Ocultar licitações (mostrar só obras privadas)
+      </label>
+      <div style="font-size:11.5px;color:#9aa2bb;font-weight:700;margin-bottom:8px">${list.length} de ${LEADS.length} alvos · ordenados por data</div>
       ${list.map(l=>{const sc=score(l); return `<div class="lead">
         ${ringHTML(sc)}
         <div class="body" onclick="openLead('${l.id}')">
-          <div><span class="nm">${l.empresa}</span><span class="badge" style="background:${SCOLOR[l.status]}">${l.status}</span></div>
-          <div style="font-size:12px;color:#7a83a0;font-weight:600;margin-top:3px">${l.tipoObra} · <span style="color:#aeb4c9">${l.fonte}</span></div>
-          <div class="meta"><span>📍 ${localTxt(l)}</span><a href="${mapLink(l)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🗺 mapa</a><span>${decisorTxt(l)}</span>${l.data?`<span>🗓 ${l.data}</span>`:""}<span style="color:${ORANGE};font-weight:800">${brl(l.valor)}</span></div>
+          <div><span class="nm">${l.empresa}</span><span class="badge" style="background:${SCOLOR[l.status]}">${l.status}</span>${l.categoria==="Licitação"?`<span class="badge" style="background:#7c3aed">⚖ Licitação</span>`:""}${ageBadge(l)}</div>
+          <div style="font-size:12px;color:#7a83a0;font-weight:600;margin-top:3px">${l.tipoObra} · <span style="color:#aeb4c9">${l.fonte}</span> ${faseChip(l)}</div>
+          <div class="meta"><span>📍 ${localTxt(l)}</span><a href="${mapLink(l)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()" style="color:#0ea5e9;font-weight:700;text-decoration:none">🗺 mapa</a>${srcLink(l)}<span>${decisorTxt(l)}</span>${l.data?`<span>🗓 ${l.data}</span>`:""}<span style="color:${ORANGE};font-weight:800">${brl(l.valor)}</span></div>
         </div>
         <button class="del" onclick="rmLead('${l.id}')">🗑</button>
       </div>`;}).join("")||'<div style="text-align:center;color:#9aa2bb;padding:30px;font-size:13px">Nenhum alvo com esses filtros.</div>'}`;
@@ -329,7 +400,7 @@ function rmLead(id){ if(confirm("Excluir este alvo?")){ LEADS=LEADS.filter(l=>l.
 
 function openLead(id){
   const l = id ? LEADS.find(x=>x.id===id) : null;
-  EDIT = l || {empresa:"",org:"Cooperativa",uf:"PR",municipio:"",local:"",tipoObra:WORK_TYPES[0],fonte:"Licença Ambiental",valor:"",contato:"A identificar",cargo:"A identificar",tel:"",email:"",status:"Mapeado",data:"",notas:""};
+  EDIT = l || {empresa:"",org:"Cooperativa",uf:"PR",municipio:"",local:"",tipoObra:WORK_TYPES[0],fonte:"Licença Ambiental",valor:"",contato:"A identificar",cargo:"A identificar",tel:"",email:"",canal:"",status:"Mapeado",fase:"",data:"",link:"",notas:"",log:[]};
   const sel=(arr,v)=>arr.map(o=>`<option ${o===v?"selected":""}>${o}</option>`).join("");
   const o=document.createElement("div"); o.className="overlay"; o.id="modal";
   o.onclick=e=>{ if(e.target===o) closeModal(); };
@@ -350,10 +421,18 @@ function openLead(id){
       <label class="f" style="flex:1"><span>Cargo do decisor</span><select id="m_cargo">${sel(ROLES,EDIT.cargo)}</select></label></div>
     <div class="row"><label class="f" style="flex:1"><span>Telefone</span><input id="m_tel" value="${EDIT.tel||""}"/></label>
       <label class="f" style="flex:1"><span>E-mail</span><input id="m_email" value="${EDIT.email||""}"/></label></div>
+    <label class="f"><span>Canal de Engenharia / Compras (portal, e-mail, telefone)</span><input id="m_canal" value="${EDIT.canal||""}" placeholder="Ex.: portal do fornecedor, e-mail de suprimentos"/></label>
     <div class="row"><label class="f" style="flex:1"><span>Etapa do funil</span><select id="m_status">${sel(STATUSES,EDIT.status)}</select></label>
-      <label class="f" style="flex:1"><span>Data da publicação</span><input id="m_data" value="${EDIT.data||""}" placeholder="dd/mm/aaaa"/></label></div>
+      <label class="f" style="flex:1"><span>Fase da obra</span><select id="m_fase"><option value="">— a definir —</option>${FASES.map(o=>`<option ${o===EDIT.fase?"selected":""}>${o}</option>`).join("")}</select></label></div>
+    <div class="row"><label class="f" style="flex:1"><span>Data da publicação</span><input id="m_data" value="${EDIT.data||""}" placeholder="dd/mm/aaaa"/></label>
+      <label class="f" style="flex:1"><span>Link da fonte</span><input id="m_link" value="${EDIT.link||""}" placeholder="https://..."/></label></div>
     <label class="f"><span>Notas</span><textarea id="m_notas" style="min-height:60px">${EDIT.notas||""}</textarea></label>
+    ${id?`<div class="card" style="background:#f7f9fc;padding:12px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b style="font-size:12.5px">Histórico de contato</b><button class="btn btn-g" style="font-size:11px;padding:5px 10px" onclick="addLog('${id}')">+ Registrar</button></div>
+      ${(EDIT.log&&EDIT.log.length)?EDIT.log.map(e=>`<div style="font-size:11.5px;color:#5a627d;border-bottom:1px solid #eef1f7;padding:4px 0"><b>${e.t}</b> — ${e.txt}</div>`).join(""):'<div style="font-size:11.5px;color:#aeb4c9">Nenhum contato registrado ainda.</div>'}
+    </div>`:""}
     <div class="row" style="margin-top:4px">
+      ${id?`<button class="btn btn-g" onclick="dossie('${id}')">🖨 Dossiê</button>`:""}
       ${id?`<button class="btn" style="background:#fff;color:#dc2626;border:1px solid #f3c5c5" onclick="rmLead('${id}');closeModal()">Excluir</button>`:""}
       <button class="btn btn-o" style="flex:1;justify-content:center;padding:12px" onclick="saveLead('${id||""}')">✓ Salvar alvo</button>
     </div>
@@ -368,11 +447,11 @@ function closeModal(){ const m=document.getElementById("modal"); if(m)m.remove()
 function saveLead(id){
   const d={empresa:val("m_empresa").trim(),org:val("m_org"),uf:val("m_uf"),municipio:val("m_municipio").trim(),local:val("m_local").trim(),
     tipoObra:val("m_tipoObra"),fonte:val("m_fonte"),valor:Number(String(val("m_valor")).replace(/\D/g,""))||0,
-    contato:val("m_contato").trim()||"A identificar",cargo:val("m_cargo"),tel:val("m_tel").trim(),email:val("m_email").trim(),
-    status:val("m_status"),data:val("m_data").trim(),notas:val("m_notas").trim()};
+    contato:val("m_contato").trim()||"A identificar",cargo:val("m_cargo"),tel:val("m_tel").trim(),email:val("m_email").trim(),canal:val("m_canal").trim(),
+    status:val("m_status"),fase:val("m_fase"),data:val("m_data").trim(),link:val("m_link").trim(),notas:val("m_notas").trim()};
   if(!d.empresa){ alert("Informe o nome da empresa."); return; }
   if(id){ LEADS=LEADS.map(l=>l.id===id?{...l,...d}:l); }
-  else { LEADS.unshift({...d,id:uid(),criado:Date.now()}); }
+  else { LEADS.unshift({...d,id:uid(),criado:Date.now(),log:[]}); }
   save(); closeModal(); render();
 }
 

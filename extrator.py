@@ -27,7 +27,11 @@ CONCRETA DE OBRA: empresa/órgão que vai construir/ampliar unidade de armazenag
 silo, secador, moega/transbordo/tombador, fábrica de ração, sementeira/UBS, granja/
 frigorífico, estrutura industrial, OU obra comercial/logística que a Civil Obras
 também executa: barracão, supermercado, atacadão/atacarejo, agropecuária/loja,
-centro de distribuição ou centro logístico.
+centro de distribuição ou centro logístico, OU obra pública/institucional de
+edificação (licitações de prefeituras/governos): escola, creche, posto/unidade/
+centro de saúde, UPA, hospital, quartel/base do corpo de bombeiros, batalhão da PM,
+delegacia, ginásio, centro administrativo. NÃO conte como obra: pavimentação,
+asfalto, saneamento, iluminação, compra de equipamentos ou serviços sem edificação.
 
 Responda APENAS com um objeto JSON válido, sem markdown, sem texto fora dele.
 
@@ -50,6 +54,11 @@ Se FOR:
   "cargo": um de {config.ROLES} (o cargo do contato; "A identificar" se não souber),
   "tel": telefone APENAS se constar no texto, senão "",
   "email": e-mail APENAS se constar no texto, senão "",
+  "fase": uma de ["Licença","Financiamento","Cotação","Em obra","Pós-obra"] conforme
+          o estágio indicado no texto (licença ambiental = "Licença"; financiamento/
+          BNDES/Plano Safra aprovado = "Financiamento"; cotação/licitação/edital =
+          "Cotação"; obra em andamento = "Em obra"; inaugurada/concluída = "Pós-obra");
+          "" se não der para saber,
   "resumo": "uma frase com o sinal de obra e o próximo passo sugerido"
 }}
 
@@ -100,6 +109,9 @@ def extrair_lead(item, modelo=None):
     except (TypeError, ValueError):
         valor = 0
 
+    fases = ["Licença", "Financiamento", "Cotação", "Em obra", "Pós-obra"]
+    fase = data.get("fase") if data.get("fase") in fases else ""
+
     return {
         "empresa": (data.get("empresa") or "").strip(),
         "org": org,
@@ -113,7 +125,10 @@ def extrair_lead(item, modelo=None):
         "cargo": cargo,
         "tel": (data.get("tel") or "").strip(),
         "email": (data.get("email") or "").strip(),
+        "canal": "",
         "status": "Mapeado",
+        "fase": fase,
         "data": item.get("data", ""),
-        "notas": (data.get("resumo") or "").strip() + (f"  | {item['link']}" if item.get("link") else ""),
+        "link": item.get("link", ""),
+        "notas": (data.get("resumo") or "").strip(),
     }
