@@ -7,11 +7,13 @@
 "auroracoop|tapejara|frigorificogranja",
 "aurora||armazenagemsilos",
 "aurora||fabricaderacao",
+"boasafra||armazenagemsilos",
 "capalcooperativaagroindustrial||armazenagemsilos",
 "capal||armazenagemsilos",
 "capal||estruturaindustrialgeral",
 "ccpr||secadorprelimpeza",
 "coamoagfeed||sementeiraubs",
+"coamo|bandeirantes|armazenagemsilos",
 "coamo|campomourao|estruturaindustrialgeral",
 "coamo|campomourao|fabricaderacao",
 "coamo|cantu|estruturaindustrialgeral",
@@ -45,5 +47,6 @@
 "frisia||frigorificogranja",
 "pecuarista||frigorificogranja",
 "programaestadualdecooperativismoms||armazenagemsilos",
-"seara||frigorificogranja"
+"seara||frigorificogranja",
+"serrabonitasementes||sementeiraubs"
 ]
