@@ -1,5 +1,25 @@
 [
  {
+  "empresa": "Belagrícola",
+  "org": "Sementeira",
+  "uf": "PR",
+  "municipio": "",
+  "local": "",
+  "tipoObra": "Sementeira / UBS",
+  "fonte": "Notícia / Anúncio",
+  "valor": 0,
+  "contato": "A identificar",
+  "cargo": "A identificar",
+  "tel": "",
+  "email": "",
+  "canal": "",
+  "status": "Mapeado",
+  "fase": "Pós-obra",
+  "data": "12/03/2026",
+  "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQLW0xWTJ5dXpuU1l0SFRZWENPZnB0ZE1ZTkwtU05ycFVsa1gwSllpdnVpWmZEczhzOU8zU0RtUmlIaUhkbV94SkZ3cExNUjY4LWk1SHplbmhvM0l4eEdUaWxxSTluN2tpS0lxUm8xUG5FOXB1aXNVeEFqWklVeW1Ja1prRE1jSzJFWTc2VlhBREFEekg2alhkU1dMMmhiSllGMFF3V2l0UkpXa3JfbmhsUg?oc=5",
+  "notas": "Belagrícola vende operação de beneficiamento de sementes no PR para Coamo - possível demanda por reforma, adequação ou ampliação da estrutura de UBS/sementeira."
+ },
+ {
   "empresa": "Pecuarista (não identificado)",
   "org": "Produtor / Fazenda",
   "uf": "",
