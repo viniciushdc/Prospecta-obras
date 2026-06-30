@@ -1,5 +1,25 @@
 [
  {
+  "empresa": "Lar",
+  "org": "Frigorífico",
+  "uf": "PR",
+  "municipio": "",
+  "local": "Oeste do Paraná",
+  "tipoObra": "Frigorífico / Granja",
+  "fonte": "Notícia / Anúncio",
+  "valor": 90000000,
+  "contato": "A identificar",
+  "cargo": "A identificar",
+  "tel": "",
+  "email": "",
+  "canal": "",
+  "status": "Mapeado",
+  "fase": "Licença",
+  "data": "28/05/2026",
+  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNajBJV25IaFE1aHVETE10MHc0U0RZQmRyX1R5OU4weGllanl2aDN0OHB3Qm5lVmU1VngxX1VGZHYxUFBQTUU2YkhnUDhhZG1hWEFUSjM5Q1doZlU4Wm5LaVJpTW81bjRzZXVKeXJjYk4xc2VGeHdYcnNPZGVXVk12dGlHdmlROGMzMEpIQWtXRzE2WkFDSi0wQ0xTSHlrY28?oc=5",
+  "notas": "Lar investe R$ 90 milhões em nova unidade avícola no Oeste do Paraná. Próximo passo: confirmar fase de projeto e identificar responsável."
+ },
+ {
   "empresa": "Cooperativa Lar",
   "org": "Cooperativa",
   "uf": "PR",
