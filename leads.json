@@ -1,5 +1,25 @@
 [
  {
+  "empresa": "Aurora Coop",
+  "org": "Cooperativa",
+  "uf": "SC",
+  "municipio": "São Miguel do Oeste",
+  "local": "",
+  "tipoObra": "Frigorífico / Granja",
+  "fonte": "Notícia / Anúncio",
+  "valor": 1100000000,
+  "contato": "A identificar",
+  "cargo": "A identificar",
+  "tel": "",
+  "email": "",
+  "canal": "",
+  "status": "Mapeado",
+  "fase": "Licença",
+  "data": "16/02/2026",
+  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOU2UyZkVCdFEzbUd4NjRZSHBvNU16akZtQnN6eG1YWnlTb2dBVndFcEtuRkVBYmFMcDJJOWtKcjQ0MHBVUmNTMTdiS2xIWmZUWGxPaVlNTS1oSUVVTFBLa2hwYjFlR2N1amhpMjZDeElwaFNmX204Uk5aRlJva2dKWlcybzY4NkFRQXVPM1JGRVVqY1pXeDFJTlkzalhmbkVodDI4WnJEN2tEd3FMRDZ2Smx6c1VvY3pUZS15WElFMmdMekxC?oc=5",
+  "notas": "Aurora Coop investirá R$ 1,1 bilhão em novo frigorífico em São Miguel do Oeste. Acompanhar obtenção de licenças ambientais e início da obra."
+ },
+ {
   "empresa": "Cooperativa Capal",
   "org": "Cooperativa",
   "uf": "PR",
