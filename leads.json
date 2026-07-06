@@ -1,5 +1,25 @@
 [
  {
+  "empresa": "Coopatos",
+  "org": "Cooperativa",
+  "uf": "MS",
+  "municipio": "Patos do Iguaçu",
+  "local": "",
+  "tipoObra": "Armazenagem / Silos",
+  "fonte": "Notícia / Anúncio",
+  "valor": 42000000,
+  "contato": "A identificar",
+  "cargo": "A identificar",
+  "tel": "",
+  "email": "",
+  "canal": "",
+  "status": "Mapeado",
+  "fase": "Licença",
+  "data": "16/04/2024",
+  "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQd3VVcGhBNzUtR0JnM2ZrQXlidkpSWnJZanVHZUN0YlZZWXdVWTZmUmNMbnFEVTQ2ZXc1emhCWFpDc1UzZERsY1gzRGJBZk45QW8zSnFiTy1BdW9mYVJLVXROUENWVFFFYjNxT2JGS3dCU1k2amRkVFBPWDFqdjYwNWFVUHlnUWRGdU1HcFJEOW84WWQtTExoU21IWW1sZFJrU2dueW1fa1Q1eDhZZENVWVNxT2hIU2EtbXZNelg0dmp0eGJsblB5VkNB?oc=5",
+  "notas": "Cooperativa Coopatos investirá R$ 42 milhões em armazém de grãos com capacidade de 26 mil toneladas. Próximo passo: obter licenças ambientais e encaminhar projeto executivo."
+ },
+ {
   "empresa": "Aurora Coop",
   "org": "Cooperativa",
   "uf": "SC",
